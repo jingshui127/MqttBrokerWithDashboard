@@ -28,7 +28,14 @@ namespace MqttBrokerBlazor
 
         public static async Task Main(string[] args)
         {
-
+            //var star = new Stardust.StarFactory(null, null, null);
+         
+            //// star.Dump();
+            //if (star.Server.IsNullOrEmpty())
+            //{
+            //    star.Server = "http://47.113.219.65:6600";
+            //    _tracer = star.Tracer;
+            //}
 
             HostConfig = HostConfig.LoadFromFile();
 
@@ -47,11 +54,6 @@ namespace MqttBrokerBlazor
 
                 goto RestartHost;
             }
-            
-            
-            XTrace.UseConsole();
-
-
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -92,8 +94,7 @@ namespace MqttBrokerBlazor
                         var services = app.ApplicationServices;
                         var mqttService = services.GetRequiredService<MqttBrokerService>();
                         var logger = services.GetRequiredService<ILogger<Program>>();
-                        app.UseStardust();
-
+                        
                         if (env.IsDevelopment())
                         {
                             app.UseDeveloperExceptionPage();
