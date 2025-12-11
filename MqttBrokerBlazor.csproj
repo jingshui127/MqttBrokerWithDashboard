@@ -8,7 +8,7 @@
     <Description>QQ:2492123056</Description>
     <Company>科控物联</Company>
     <Copyright>©2002-2024 WYQ</Copyright>
-    <VersionPrefix>3.0</VersionPrefix>
+    <VersionPrefix>5.0</VersionPrefix>
     <VersionSuffix>$([System.DateTime]::Now.ToString(`yyyy.MMdd`))</VersionSuffix>
     <Version>$(VersionPrefix).$(VersionSuffix)</Version>
     <FileVersion>$(Version)</FileVersion>
@@ -21,26 +21,7 @@
     <SignAssembly>True</SignAssembly>
     <IsPackable>False</IsPackable>
     <NoWarn>1701;1702;NU5104;NETSDK1138;CS7035</NoWarn>
-    <GarbageCollectionAdaptationMode>true</GarbageCollectionAdaptationMode>		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<AssemblyTitle>科控物联MqttBroker</AssemblyTitle>
-		<Description>QQ:2492123056</Description>
-		<Company>科控物联</Company>
-		<Copyright>©2002-2024 WYQ</Copyright>
-		<VersionPrefix>3.0</VersionPrefix>
-		<VersionSuffix>$([System.DateTime]::Now.ToString(`yyyy.MMdd`))</VersionSuffix>
-		<Version>$(VersionPrefix).$(VersionSuffix)</Version>
-		<FileVersion>$(Version)</FileVersion>
-		<AssemblyVersion>$(VersionPrefix).*</AssemblyVersion>
-		<Deterministic>false</Deterministic>
-		<!--<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>-->
-		<ImplicitUsings>enable</ImplicitUsings>
-		<LangVersion>latest</LangVersion>
-		<!--<ApplicationManifest>app.manifest</ApplicationManifest>-->
-		<SignAssembly>True</SignAssembly>
-		<IsPackable>False</IsPackable>
-		<NoWarn>1701;1702;NU5104;NETSDK1138;CS7035</NoWarn>
-		
+	
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="MQTTnet.AspNetCore" Version="5.0.1.1416" />

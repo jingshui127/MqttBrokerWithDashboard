@@ -41,7 +41,7 @@ namespace MqttBrokerBlazor.Components
         }
 
         // 更新事件参数类型
-        void OnClientConnected(ValidatingConnectionEventArgs e) =>
+        void OnClientConnected(ClientConnectedEventArgs e) =>
             InvokeAsync(StateHasChanged);
 
         // 更新事件参数类型

@@ -54,7 +54,7 @@ namespace MqttBrokerBlazor.MqttBroker
 
 
         // 更新事件参数类型
-        public event Action<ValidatingConnectionEventArgs> OnClientConnected;
+        public event Action<ClientConnectedEventArgs> OnClientConnected;
         public event Action<ClientDisconnectedEventArgs> OnClientDisconnected;
         public event Action<InterceptingPublishEventArgs> OnMessageReceived;
 
@@ -64,7 +64,7 @@ namespace MqttBrokerBlazor.MqttBroker
 
 
         // 创建新的处理方法，替代原来的接口实现
-        public Task HandleClientConnectedAsync(ValidatingConnectionEventArgs e)
+        public Task HandleClientConnectedAsync(ClientConnectedEventArgs e)
         {
             lock (_thisLock) _connectedClients.Add(new MqttClient
             {

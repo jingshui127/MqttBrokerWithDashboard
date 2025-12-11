@@ -23,11 +23,11 @@ namespace MqttBrokerBlazor.Components.Panels
             _mqtt.OnClientDisconnected -= OnClientDisconnected;
         }
 
-        // 更新事件参数类型
-        void OnClientConnected(ValidatingConnectionEventArgs e) =>
+        // 更新事件参数 type
+        void OnClientConnected(ClientConnectedEventArgs e) =>
             InvokeAsync(StateHasChanged);
 
-        // 更新事件参数类型
+        // 更新事件参数 type
         void OnClientDisconnected(ClientDisconnectedEventArgs e) =>
             InvokeAsync(StateHasChanged);
     }

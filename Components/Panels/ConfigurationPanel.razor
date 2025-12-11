@@ -8,10 +8,25 @@
     <MudItem xs="12">
         <MudNumericField @bind-Value="_httpPort" Label="HTTP端口" />
     </MudItem>
+    
+    <!-- Enable Authentication -->
+    <MudItem xs="12">
+        <MudSwitch T="bool" @bind-Value="_enableAuthentication" Label="启用身份验证" Color="Color.Primary"/>
+    </MudItem>
+    
+    <!-- Username -->
+    <MudItem xs="12">
+        <MudTextField @bind-Value="_username" Label="用户名" Disabled="@(!IsAuthEnabled)" />
+    </MudItem>
+    
+    <!-- Password -->
+    <MudItem xs="12">
+        <MudTextField @bind-Value="_password" Label="密码" InputType="@(_showPassword ? InputType.Text : InputType.Password)" Disabled="@(!IsAuthEnabled)" Adornment="Adornment.End" AdornmentIcon="@(_showPassword ? Icons.Material.Filled.VisibilityOff : Icons.Material.Filled.Visibility)" OnAdornmentClick="TogglePasswordVisibility" />
+    </MudItem>
 
     <!-- Hide Config Panel At Startup -->
     <MudItem xs="12">
-        <MudSwitch T="bool" Checked="_hidePanel" CheckedChanged="HidePanelChanged" Label="隐藏配置面板" Color="Color.Primary"/>
+        <MudSwitch T="bool" @bind-Value="_hidePanel" Label="隐藏配置面板" Color="Color.Primary"/>
     </MudItem>
 
     <!-- Reset/Restart -->

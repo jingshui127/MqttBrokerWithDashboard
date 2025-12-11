@@ -1,5 +1,8 @@
 {
   "HideConfigPanel": false,
   "TcpPort": 1883,
-  "HttpPort": 5000
+  "HttpPort": 5000,
+  "EnableAuthentication": false,
+  "Username": "admin",
+  "Password": "Q2492123056"
 }

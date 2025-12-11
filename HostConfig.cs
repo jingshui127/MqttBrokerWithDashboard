@@ -13,6 +13,13 @@ namespace MqttBrokerBlazor
 
         public int HttpPort = 5000;
 
+        // 添加是否启用身份验证的选项
+        public bool EnableAuthentication = false;
+        
+        // 添加用户名和密码配置
+        public string Username = "admin";
+        public string Password = "password";
+
         public static HostConfig LoadFromFile()
         {
             if (File.Exists(Filename))
