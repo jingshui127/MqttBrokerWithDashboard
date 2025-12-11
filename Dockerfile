@@ -10,4 +10,4 @@ RUN dotnet publish -c Release -o /publish --nologo
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime-env
 WORKDIR /publish
 COPY --from=build-env /publish .
-ENTRYPOINT dotnet MqttBrokerWithDashboard.dll
+ENTRYPOINT dotnet MqttBrokerBlazor.dll

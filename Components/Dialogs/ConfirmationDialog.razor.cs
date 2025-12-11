@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
-namespace MqttBrokerWithDashboard.Components.Dialogs
+namespace MqttBrokerBlazor.Components.Dialogs
 {
     public partial class ConfirmationDialog : ComponentBase
     {
-        [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+        [CascadingParameter] IMudDialogInstance MudDialog { get; set; }
 
         [Parameter] public string ContentText { get; set; }
 

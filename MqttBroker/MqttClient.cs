@@ -1,6 +1,6 @@
 using System;
 
-namespace MqttBrokerWithDashboard.MqttBroker
+namespace MqttBrokerBlazor.MqttBroker
 {
     public class MqttClient
     {

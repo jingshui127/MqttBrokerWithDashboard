@@ -1,7 +1,7 @@
 using System.IO;
 using Newtonsoft.Json;
 
-namespace MqttBrokerWithDashboard
+namespace MqttBrokerBlazor
 {
     public class HostConfig
     {

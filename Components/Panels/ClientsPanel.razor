@@ -1,19 +1,19 @@
 @if (_mqtt.ConnectedClients.Count == 0)
 {
     <MudPaper Class="py-8" Outlined="true">
-        <MudText Align="Align.Center">No clients in list.</MudText>
+        <MudText Align="Align.Center">列表中没有客户端。</MudText>
     </MudPaper>
 }
 else
 {
     <MudTable T="MqttClient" Items="_mqtt.ConnectedClients" Striped="true" Elevation="0">
         <HeaderContent>
-            <MudTh><MudTableSortLabel InitialDirection="SortDirection.Descending" SortBy="new Func<MqttClient, object>(x => x.TimeOfConnection)">Time</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel SortBy="new Func<MqttClient, object>(x => x.ClientId)">ClientId</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel InitialDirection="SortDirection.Descending" SortBy="new Func<MqttClient, object>(x => x.TimeOfConnection)">时间</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortBy="new Func<MqttClient, object>(x => x.ClientId)">客户端ID</MudTableSortLabel></MudTh>
         </HeaderContent>
         <RowTemplate>
-            <MudTd DataLabel="Time">@context.TimeOfConnection.ToLongTimeString()</MudTd>
-            <MudTd DataLabel="ClientId">@context.ClientId</MudTd>
+            <MudTd DataLabel="时间">@context.TimeOfConnection.ToLongTimeString()</MudTd>
+            <MudTd DataLabel="客户端ID">@context.ClientId</MudTd>
         </RowTemplate>
         <PagerContent>
             <MudTablePager PageSizeOptions="new int[]{5, 10, 20}" />

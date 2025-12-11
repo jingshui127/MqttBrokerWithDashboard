@@ -1,9 +1,9 @@
 using System;
 using Microsoft.AspNetCore.Components;
-using MqttBrokerWithDashboard.MqttBroker;
+using MqttBrokerBlazor.MqttBroker;
 using MQTTnet.Server;
 
-namespace MqttBrokerWithDashboard.Components.Panels
+namespace MqttBrokerBlazor.Components.Panels
 {
     public partial class ClientsPanel : ComponentBase, IDisposable
     {
@@ -23,10 +23,12 @@ namespace MqttBrokerWithDashboard.Components.Panels
             _mqtt.OnClientDisconnected -= OnClientDisconnected;
         }
 
-        void OnClientConnected(MqttServerClientConnectedEventArgs e) =>
+        // 更新事件参数类型
+        void OnClientConnected(ValidatingConnectionEventArgs e) =>
             InvokeAsync(StateHasChanged);
 
-        void OnClientDisconnected(MqttServerClientDisconnectedEventArgs e) =>
+        // 更新事件参数类型
+        void OnClientDisconnected(ClientDisconnectedEventArgs e) =>
             InvokeAsync(StateHasChanged);
     }
 }

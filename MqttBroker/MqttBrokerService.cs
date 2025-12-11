@@ -4,16 +4,15 @@ using MQTTnet.Server;
 using System;
 using System.Text;
 using System.Threading.Tasks;
-using MQTTnet.Client.Receiving;
 using System.Collections.Generic;
 
-namespace MqttBrokerWithDashboard.MqttBroker
+namespace MqttBrokerBlazor.MqttBroker
 {
-    public class MqttBrokerService : IMqttServerClientConnectedHandler, IMqttServerClientDisconnectedHandler, IMqttApplicationMessageReceivedHandler, IMqttServerClientMessageQueueInterceptor
+    public class MqttBrokerService
     {
         readonly ILogger _log;
 
-        public IMqttServer Server { get; set; }
+        public MqttServer Server { get; set; }
 
         readonly object _thisLock = new();
 
@@ -54,16 +53,18 @@ namespace MqttBrokerWithDashboard.MqttBroker
         }
 
 
-        public event Action<MqttServerClientConnectedEventArgs> OnClientConnected;
-        public event Action<MqttServerClientDisconnectedEventArgs> OnClientDisconnected;
-        public event Action<MqttApplicationMessageReceivedEventArgs> OnMessageReceived;
+        // 更新事件参数类型
+        public event Action<ValidatingConnectionEventArgs> OnClientConnected;
+        public event Action<ClientDisconnectedEventArgs> OnClientDisconnected;
+        public event Action<InterceptingPublishEventArgs> OnMessageReceived;
 
 
         public MqttBrokerService(ILogger<MqttBrokerService> log) =>
             _log = log;
 
 
-        Task IMqttServerClientConnectedHandler.HandleClientConnectedAsync(MqttServerClientConnectedEventArgs e)
+        // 创建新的处理方法，替代原来的接口实现
+        public Task HandleClientConnectedAsync(ValidatingConnectionEventArgs e)
         {
             lock (_thisLock) _connectedClients.Add(new MqttClient
             {
@@ -79,7 +80,7 @@ namespace MqttBrokerWithDashboard.MqttBroker
             return Task.CompletedTask;
         }
 
-        Task IMqttServerClientDisconnectedHandler.HandleClientDisconnectedAsync(MqttServerClientDisconnectedEventArgs e)
+        public Task HandleClientDisconnectedAsync(ClientDisconnectedEventArgs e)
         {
             lock (_thisLock)
             {
@@ -99,9 +100,10 @@ namespace MqttBrokerWithDashboard.MqttBroker
             return Task.CompletedTask;
         }
 
-        Task IMqttApplicationMessageReceivedHandler.HandleApplicationMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs e)
+        public Task HandleApplicationMessageReceivedAsync(InterceptingPublishEventArgs e)
         {
             var topic = e.ApplicationMessage.Topic;
+            // 修复Payload访问方式
             var payload = Encoding.UTF8.GetString(e.ApplicationMessage.Payload);
 
             lock (_thisLock)
@@ -130,7 +132,7 @@ namespace MqttBrokerWithDashboard.MqttBroker
             return Task.CompletedTask;
         }
 
-        Task IMqttServerClientMessageQueueInterceptor.InterceptClientMessageQueueEnqueueAsync(MqttClientMessageQueueInterceptorContext context)
+        public Task InterceptClientMessageQueueEnqueueAsync(InterceptingClientApplicationMessageEnqueueEventArgs context)
         {
             // see https://github.com/chkr1011/MQTTnet/issues/1167
             /*
@@ -158,21 +160,34 @@ namespace MqttBrokerWithDashboard.MqttBroker
         }
 
 
-        public void Publish(MqttApplicationMessage message) =>
-            _ = Server?.PublishAsync(message);
+        // 修复Publish方法
+        public async Task PublishAsync(MqttApplicationMessage message)
+        {
+            if (Server != null)
+            {
+                await Server.InjectApplicationMessage(
+                    new InjectedMqttApplicationMessage(message));
+            }
+        }
 
-        public void Publish(string topic, byte[] payload, bool retain) =>
-            Publish(new MqttApplicationMessageBuilder()
+        public async Task PublishAsync(string topic, byte[] payload, bool retain)
+        {
+            var message = new MqttApplicationMessageBuilder()
                 .WithTopic(topic)
                 .WithPayload(payload)
                 .WithRetainFlag(retain)
-                .Build());
+                .Build();
+            await PublishAsync(message);
+        }
 
-        public void Publish(string topic, string payload, bool retain) =>
-            Publish(new MqttApplicationMessageBuilder()
+        public async Task PublishAsync(string topic, string payload, bool retain)
+        {
+            var message = new MqttApplicationMessageBuilder()
                 .WithTopic(topic)
                 .WithPayload(payload)
                 .WithRetainFlag(retain)
-                .Build());
+                .Build();
+            await PublishAsync(message);
+        }
     }
 }

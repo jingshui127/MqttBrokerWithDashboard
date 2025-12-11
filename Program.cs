@@ -1,10 +1,13 @@
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
-using MQTTnet.AspNetCore.Extensions;
+// 更新MQTTnet相关的using语句
+using MQTTnet.AspNetCore;
+using NewLife;
+using NewLife.Log;
+using System.Threading;
+using System.Threading.Tasks;
 
-namespace MqttBrokerWithDashboard
+namespace MqttBrokerBlazor
 {
     public class Program
     {
@@ -13,9 +16,20 @@ namespace MqttBrokerWithDashboard
         static IHost _host;
 
         static CancellationTokenSource _manualResartCts;
+        //public static ITracer? _tracer;
+
 
         public static async Task Main(string[] args)
         {
+            //var star = new Stardust.StarFactory(null, null, null);
+         
+            //// star.Dump();
+            //if (star.Server.IsNullOrEmpty())
+            //{
+            //    star.Server = "http://47.113.219.65:6600";
+            //    _tracer = star.Tracer;
+            //}
+
             HostConfig = HostConfig.LoadFromFile();
 
         RestartHost:
@@ -41,8 +55,9 @@ namespace MqttBrokerWithDashboard
                 {
                     webBuilder.UseKestrel(options =>
                     {
-                        options.ListenAnyIP(HostConfig.TcpPort, l => l.UseMqtt());
-                        options.ListenAnyIP(HostConfig.HttpPort);
+                        // 确保正确的端口配置
+                        options.ListenAnyIP(HostConfig.TcpPort, l => l.UseMqtt()); // MQTT端口使用MQTT协议
+                        options.ListenAnyIP(HostConfig.HttpPort); // HTTP端口
                     });
                     webBuilder.UseStartup<Startup>();
                 });

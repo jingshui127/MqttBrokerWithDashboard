@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Components;
-using MqttBrokerWithDashboard.MqttBroker;
+using MqttBrokerBlazor.MqttBroker;
 using MQTTnet;
+using MQTTnet.Server;
 
-namespace MqttBrokerWithDashboard.Components.Panels
+namespace MqttBrokerBlazor.Components.Panels
 {
     public partial class MessagesPanel : ComponentBase, IDisposable
     {
@@ -26,7 +27,8 @@ namespace MqttBrokerWithDashboard.Components.Panels
             _mqtt.OnMessageReceived -= OnMessageReceived;
         }
 
-        void OnMessageReceived(MqttApplicationMessageReceivedEventArgs e) =>
+        // 更新事件参数类型
+        void OnMessageReceived(InterceptingPublishEventArgs e) =>
             InvokeAsync(StateHasChanged);
 
         IEnumerable<MqttMessage> GetItems()

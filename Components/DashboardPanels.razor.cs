@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Components;
-using MqttBrokerWithDashboard.MqttBroker;
+using MqttBrokerBlazor.MqttBroker;
 using MQTTnet;
 using MQTTnet.Server;
 
-namespace MqttBrokerWithDashboard.Components
+namespace MqttBrokerBlazor.Components
 {
     public partial class DashboardPanels : ComponentBase
     {
@@ -40,13 +40,16 @@ namespace MqttBrokerWithDashboard.Components
             _mqtt.OnMessageReceived -= OnMessageReceived;
         }
 
-        void OnClientConnected(MqttServerClientConnectedEventArgs e) =>
+        // 更新事件参数类型
+        void OnClientConnected(ValidatingConnectionEventArgs e) =>
             InvokeAsync(StateHasChanged);
 
-        void OnClientDisconnected(MqttServerClientDisconnectedEventArgs e) =>
+        // 更新事件参数类型
+        void OnClientDisconnected(ClientDisconnectedEventArgs e) =>
             InvokeAsync(StateHasChanged);
 
-        void OnMessageReceived(MqttApplicationMessageReceivedEventArgs e)
+        // 更新事件参数类型
+        void OnMessageReceived(InterceptingPublishEventArgs e)
         {
             if (!_isMessagesPanelExpanded)
                 _numberOfUnseenMessages++;

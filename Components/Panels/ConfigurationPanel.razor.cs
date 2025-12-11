@@ -1,11 +1,11 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Logging;
-using MqttBrokerWithDashboard.Components.Dialogs;
-using MqttBrokerWithDashboard.MqttBroker;
+using MqttBrokerBlazor.Components.Dialogs;
+using MqttBrokerBlazor.MqttBroker;
 using MudBlazor;
 
-namespace MqttBrokerWithDashboard.Components.Panels
+namespace MqttBrokerBlazor.Components.Panels
 {
     public partial class ConfigurationPanel : ComponentBase
     {
@@ -58,7 +58,7 @@ namespace MqttBrokerWithDashboard.Components.Panels
             var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.Small };
 
             var result = await _dlg.Show<ConfirmationDialog>("Save & Restart?", parameters, options).Result;
-            if (!result.Cancelled)
+            if (!result.Canceled)
             {
                 _log.LogWarning("Save config and restart server ...");
                 SaveToFile();
@@ -78,7 +78,7 @@ namespace MqttBrokerWithDashboard.Components.Panels
                 var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.Small };
 
                 var result = await _dlg.Show<ConfirmationDialog>("Hide Configuration Panel?", parameters, options).Result;
-                if (result.Cancelled) return;
+                if (result.Canceled) return;
             }
 
             _hidePanel = newValue;

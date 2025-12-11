@@ -1,7 +1,7 @@
 using System;
 using MQTTnet;
 
-namespace MqttBrokerWithDashboard.MqttBroker
+namespace MqttBrokerBlazor.MqttBroker
 {
     public class MqttMessage
     {

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components;
-using MqttBrokerWithDashboard.MqttBroker;
+using MqttBrokerBlazor.MqttBroker;
 
-namespace MqttBrokerWithDashboard.Components.Panels
+namespace MqttBrokerBlazor.Components.Panels
 {
     public partial class PublishPanel : ComponentBase
     {
@@ -15,6 +15,7 @@ namespace MqttBrokerWithDashboard.Components.Panels
 
         bool IsPublishDisabled => string.IsNullOrWhiteSpace(_topic) || string.IsNullOrWhiteSpace(_payload);
 
-        void Publish() => _mqtt.Publish(_topic, _payload, _retained);
+        // 更新为异步方法调用
+        async void Publish() => await _mqtt.PublishAsync(_topic, _payload, _retained);
     }
 }

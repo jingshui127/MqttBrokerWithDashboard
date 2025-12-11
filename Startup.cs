@@ -3,12 +3,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MqttBrokerWithDashboard.MqttBroker;
+using MqttBrokerBlazor.MqttBroker;
 using MQTTnet.AspNetCore;
-using MQTTnet.AspNetCore.Extensions;
+// 移除不再存在的命名空间引用
+// using MQTTnet.AspNetCore.Extensions;
 using MudBlazor.Services;
 
-namespace MqttBrokerWithDashboard
+namespace MqttBrokerBlazor
 {
     public class Startup
     {
@@ -23,22 +24,24 @@ namespace MqttBrokerWithDashboard
         {
             services.AddRazorPages(options => options.RootDirectory = "/Pages");
             services.AddServerSideBlazor();
+            services.AddStardust("http://47.113.219.65:6600", "MqttBrokerBlazor", null);
 
             services.AddMudServices();
 
             services.AddSingleton<MqttBrokerService>();
+            
+            // 更新MQTT服务配置以适应新版本
             services.AddHostedMqttServerWithServices(options =>
             {
-                var service = options.ServiceProvider.GetRequiredService<MqttBrokerService>();
-
+                // 移除不再存在的WithInterceptor调用
                 options.WithoutDefaultEndpoint();
-                options.WithClientMessageQueueInterceptor(service);
             });
+            
             services.AddMqttConnectionHandler();
             services.AddConnections();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, MqttBrokerService mqttService)
         {
             if (env.IsDevelopment())
             {
@@ -57,12 +60,12 @@ namespace MqttBrokerWithDashboard
 
             app.UseMqttServer(server =>
             {
-                var mqttBrokerService = app.ApplicationServices.GetRequiredService<MqttBrokerService>();
-                mqttBrokerService.Server = server;
+                mqttService.Server = server;
 
-                server.ClientConnectedHandler = mqttBrokerService;
-                server.ClientDisconnectedHandler = mqttBrokerService;
-                server.ApplicationMessageReceivedHandler = mqttBrokerService;
+                // 更新事件处理器注册方式
+                server.ValidatingConnectionAsync += mqttService.HandleClientConnectedAsync;
+                server.ClientDisconnectedAsync += mqttService.HandleClientDisconnectedAsync;
+                server.InterceptingPublishAsync += mqttService.HandleApplicationMessageReceivedAsync;
             });
         }
     }

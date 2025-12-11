@@ -1,24 +1,24 @@
 <MudGrid>
     <!-- Tcp Port -->
     <MudItem xs="12">
-        <MudNumericField @bind-Value="_tcpPort" Label="Tcp Port" />
+        <MudNumericField @bind-Value="_tcpPort" Label="TCP端口" />
     </MudItem>
 
     <!-- Http Port -->
     <MudItem xs="12">
-        <MudNumericField @bind-Value="_httpPort" Label="Http Port" />
+        <MudNumericField @bind-Value="_httpPort" Label="HTTP端口" />
     </MudItem>
 
     <!-- Hide Config Panel At Startup -->
     <MudItem xs="12">
-        <MudSwitch T="bool" Checked="_hidePanel" CheckedChanged="HidePanelChanged" Label="Hide Configuration Panel" Color="Color.Primary"/>
+        <MudSwitch T="bool" Checked="_hidePanel" CheckedChanged="HidePanelChanged" Label="隐藏配置面板" Color="Color.Primary"/>
     </MudItem>
 
     <!-- Reset/Restart -->
     <MudItem xs="6">
-        <MudButton Variant="Variant.Filled" Color="Color.Primary" FullWidth="true" Disabled="!IsDirty" OnClick="Reset">Reset Changes</MudButton>
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" FullWidth="true" Disabled="!IsDirty" OnClick="Reset">重置更改</MudButton>
     </MudItem>
     <MudItem xs="6">
-        <MudButton Variant="Variant.Filled" Color="Color.Error" FullWidth="true" Disabled="!IsDirty"  OnClick="SaveAndRestart">Save Changes & Restart</MudButton>
+        <MudButton Variant="Variant.Filled" Color="Color.Error" FullWidth="true" Disabled="!IsDirty"  OnClick="SaveAndRestart">保存并重启</MudButton>
     </MudItem>
 </MudGrid>
