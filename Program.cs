@@ -1,8 +1,10 @@
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using MQTTnet.AspNetCore.Extensions;
+using NewLife;
+using NewLife.Log;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace MqttBrokerWithDashboard
 {
@@ -13,9 +15,20 @@ namespace MqttBrokerWithDashboard
         static IHost _host;
 
         static CancellationTokenSource _manualResartCts;
+        public static ITracer? _tracer;
+
 
         public static async Task Main(string[] args)
         {
+            var star = new Stardust.StarFactory(null, null, null);
+         
+            // star.Dump();
+            if (star.Server.IsNullOrEmpty())
+            {
+                star.Server = "http://47.113.219.65:6600";
+                _tracer = star.Tracer;
+            }
+
             HostConfig = HostConfig.LoadFromFile();
 
         RestartHost:

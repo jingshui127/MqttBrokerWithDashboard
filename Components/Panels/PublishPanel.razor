@@ -1,14 +1,14 @@
 <MudGrid>
     <MudItem xs="12">
-        <MudTextField @bind-Value="_topic" Immediate="true" Label="Topic" />
+        <MudTextField @bind-Value="_topic" Immediate="true" Label="主题" />
     </MudItem>
     <MudItem xs="12">
-        <MudTextField @bind-Value="_payload" Immediate="true" Label="Payload" />
+        <MudTextField @bind-Value="_payload" Immediate="true" Label="负载" />
     </MudItem>
     <MudItem xs="12" >
-        <MudSwitch @bind-Checked="_retained" Label="Retain" Color="Color.Primary" Class="me-6"/>
+        <MudSwitch T="bool" @bind-Checked="_retained" Label="保留" Color="Color.Primary" Class="me-6"/>
     </MudItem>
     <MudItem xs="12">
-        <MudButton StartIcon="@Icons.Material.Filled.Send" Variant="Variant.Filled" Color="Color.Primary" FullWidth="true" OnClick="Publish" Disabled="IsPublishDisabled">Publish</MudButton>
+        <MudButton StartIcon="@Icons.Material.Filled.Send" Variant="Variant.Filled" Color="Color.Primary" FullWidth="true" OnClick="Publish" Disabled="IsPublishDisabled">发布</MudButton>
     </MudItem>
 </MudGrid>
