@@ -7,7 +7,7 @@ namespace MqttBrokerBlazor.Components.Panels
 {
     public partial class ClientsPanel : ComponentBase, IDisposable
     {
-        [Inject] MqttBrokerService _mqtt { get; set; }
+        [Inject] MqttBrokerService _mqtt { get; set; } = default!;
 
         protected override void OnInitialized()
         {

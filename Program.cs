@@ -18,11 +18,11 @@ namespace MqttBrokerBlazor
 {
     public class Program
     {
-        public static HostConfig HostConfig { get; set; }
+        public static HostConfig HostConfig { get; set; } = new HostConfig();
 
-        static IHost _host;
+        static IHost? _host;
 
-        static CancellationTokenSource _manualResartCts;
+        static CancellationTokenSource _manualResartCts = new CancellationTokenSource();
         //public static ITracer? _tracer;
 
 
@@ -49,7 +49,7 @@ namespace MqttBrokerBlazor
             {
                 System.Console.WriteLine("Restarting host ...");
 
-                _host.Dispose();
+                _host?.Dispose();
                 _host = null;
 
                 goto RestartHost;

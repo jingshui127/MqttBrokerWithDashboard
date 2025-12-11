@@ -5,11 +5,11 @@ namespace MqttBrokerBlazor.Components.Dialogs
 {
     public partial class ConfirmationDialog : ComponentBase
     {
-        [CascadingParameter] IMudDialogInstance MudDialog { get; set; }
+        [CascadingParameter] IMudDialogInstance MudDialog { get; set; } = default!;
 
-        [Parameter] public string ContentText { get; set; }
+        [Parameter] public string ContentText { get; set; } = string.Empty;
 
-        [Parameter] public string ButtonText { get; set; }
+        [Parameter] public string ButtonText { get; set; } = string.Empty;
 
         [Parameter] public Color Color { get; set; }
 

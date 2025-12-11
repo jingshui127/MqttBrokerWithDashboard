@@ -7,7 +7,7 @@ namespace MqttBrokerBlazor.Components
 {
     public partial class DashboardPanels : ComponentBase
     {
-        [Inject] MqttBrokerService _mqtt { get; set; }
+        [Inject] MqttBrokerService _mqtt { get; set; } = default!;
 
         int _numberOfUnseenMessages = 0;
 

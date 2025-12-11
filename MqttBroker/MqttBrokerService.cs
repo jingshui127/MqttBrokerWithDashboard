@@ -12,7 +12,7 @@ namespace MqttBrokerBlazor.MqttBroker
     {
         readonly ILogger _log;
 
-        public MqttServer Server { get; set; }
+        public MqttServer? Server { get; set; }
 
         readonly object _thisLock = new();
 
@@ -23,7 +23,7 @@ namespace MqttBrokerBlazor.MqttBroker
             {
                 lock (_thisLock)
                 {
-                    return _messages?.AsReadOnly();
+                    return _messages.AsReadOnly();
                 }
             }
         }
@@ -47,16 +47,16 @@ namespace MqttBrokerBlazor.MqttBroker
             {
                 lock (_thisLock)
                 {
-                    return _connectedClients?.AsReadOnly();
+                    return _connectedClients.AsReadOnly();
                 }
             }
         }
 
 
         // 更新事件参数类型
-        public event Action<ClientConnectedEventArgs> OnClientConnected;
-        public event Action<ClientDisconnectedEventArgs> OnClientDisconnected;
-        public event Action<InterceptingPublishEventArgs> OnMessageReceived;
+        public event Action<ClientConnectedEventArgs>? OnClientConnected;
+        public event Action<ClientDisconnectedEventArgs>? OnClientDisconnected;
+        public event Action<InterceptingPublishEventArgs>? OnMessageReceived;
 
 
         public MqttBrokerService(ILogger<MqttBrokerService> log) =>

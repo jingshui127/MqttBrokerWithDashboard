@@ -9,11 +9,11 @@ namespace MqttBrokerBlazor.Components.Panels
 {
     public partial class ConfigurationPanel : ComponentBase
     {
-        [Inject] MqttBrokerService _mqtt { get; set; }
+        [Inject] MqttBrokerService _mqtt { get; set; } = default!;
 
-        [Inject] ILogger<ConfigurationPanel> _log { get; set; }
+        [Inject] ILogger<ConfigurationPanel> _log { get; set; } = default!;
 
-        [Inject] IDialogService _dlg { get; set; }
+        [Inject] IDialogService _dlg { get; set; } = default!;
 
         bool _hidePanel;
 
@@ -25,8 +25,8 @@ namespace MqttBrokerBlazor.Components.Panels
         bool _enableAuthentication;
         
         // 添加用户名和密码字段
-        string _username;
-        string _password;
+        string _username = string.Empty;
+        string _password = string.Empty;
 
         // 添加计算属性来确定身份验证是否启用
         bool IsAuthEnabled => _enableAuthentication;

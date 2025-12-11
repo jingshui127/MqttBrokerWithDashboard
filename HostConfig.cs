@@ -25,7 +25,8 @@ namespace MqttBrokerBlazor
             if (File.Exists(Filename))
             {
                 using var file = File.OpenText(Filename);
-                return (HostConfig)new JsonSerializer().Deserialize(file, typeof(HostConfig));
+                var result = (HostConfig?)new JsonSerializer().Deserialize(file, typeof(HostConfig));
+                return result ?? new HostConfig();
             }
             return new HostConfig();
         }

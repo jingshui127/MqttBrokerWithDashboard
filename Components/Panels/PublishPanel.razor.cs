@@ -5,7 +5,7 @@ namespace MqttBrokerBlazor.Components.Panels
 {
     public partial class PublishPanel : ComponentBase
     {
-        [Inject] MqttBrokerService _mqtt { get; set; }
+        [Inject] MqttBrokerService _mqtt { get; set; } = default!;
 
         string _topic = "MyTopic";
 

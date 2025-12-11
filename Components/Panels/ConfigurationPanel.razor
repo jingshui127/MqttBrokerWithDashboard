@@ -1,11 +1,11 @@
 <MudGrid>
     <!-- Tcp Port -->
-    <MudItem xs="12">
+    <MudItem xs="6">
         <MudNumericField @bind-Value="_tcpPort" Label="TCP端口" />
     </MudItem>
 
     <!-- Http Port -->
-    <MudItem xs="12">
+    <MudItem xs="6">
         <MudNumericField @bind-Value="_httpPort" Label="HTTP端口" />
     </MudItem>
     
@@ -15,12 +15,12 @@
     </MudItem>
     
     <!-- Username -->
-    <MudItem xs="12">
+    <MudItem xs="6">
         <MudTextField @bind-Value="_username" Label="用户名" Disabled="@(!IsAuthEnabled)" />
     </MudItem>
     
     <!-- Password -->
-    <MudItem xs="12">
+    <MudItem xs="6">
         <MudTextField @bind-Value="_password" Label="密码" InputType="@(_showPassword ? InputType.Text : InputType.Password)" Disabled="@(!IsAuthEnabled)" Adornment="Adornment.End" AdornmentIcon="@(_showPassword ? Icons.Material.Filled.VisibilityOff : Icons.Material.Filled.Visibility)" OnAdornmentClick="TogglePasswordVisibility" />
     </MudItem>
 
